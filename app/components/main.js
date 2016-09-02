@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 import routes from '../config/routes.js';
 import App from './App.jsx';
 
 ReactDOM.render(
-    <Router>{routes}</Router>,
+    <Router history={hashHistory} routes={routes} />,
     document.getElementById('app')
 );

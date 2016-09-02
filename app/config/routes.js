@@ -1,8 +1,10 @@
 import React from 'react';
 import App from '../components/App.jsx';
 import Home from '../components/Home.jsx';
-import { Router } from 'react-router';
+import { Router, IndexRoute, hashHistory, Route } from 'react-router';
 
 module.exports = (
-    <Router path='/' component={App}></Router>
-)
+    <Route path="/" component={App}>
+        <IndexRoute component={Home} />
+    </Route>
+);
