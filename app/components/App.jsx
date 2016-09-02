@@ -2,7 +2,6 @@ import React from 'react';
 
 class App extends React.Component {
     render() {
-        console.log(this);
         return (
             <div className="main-container">
                 <nav className="navbar navbar-default" role="navigation">
