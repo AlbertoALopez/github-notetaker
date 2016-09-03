@@ -17,7 +17,7 @@ export default class Profile extends React.Component {
         };
     }
     init() {
-        this.ref = base.bindToState(this.props.routeParams.username, {
+        this.ref = base.syncState(this.props.routeParams.username, {
             context: this,
             asArray: true,
             state: 'notes'
@@ -33,6 +33,11 @@ export default class Profile extends React.Component {
         base.removeBinding(this.ref);
         this.init();
     }
+    addNoteHandler(newNote) {
+        this.setState({
+            notes: this.state.notes.concat([newNote])
+        });
+    }
     render() {
         const username = this.props.routeParams.username;
         return (
@@ -44,14 +49,11 @@ export default class Profile extends React.Component {
                     <Repos username={username} repos={this.state.repos}/>
                 </div>
                 <div className="col-md-4">
-                    <Notes username={username} notes={this.state.notes}/>
+                    <Notes username={username}
+                        notes={this.state.notes}
+                        addNote={this.addNoteHandler.bind(this)}/>
                 </div>
             </div>
         )
     }
-}
-
-Profile.propTypes = {
-    username: React.PropTypes.string.isRequired,
-    repos: React.PropTypes.array,
 }
