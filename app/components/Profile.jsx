@@ -50,3 +50,8 @@ export default class Profile extends React.Component {
         )
     }
 }
+
+Profile.propTypes = {
+    username: React.PropTypes.string.isRequired,
+    repos: React.PropTypes.array,
+}
