@@ -1,3 +1,4 @@
+/* React component that allows searching of GitHub by user name */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { withRouter } from 'react-router';

@@ -1,3 +1,4 @@
+/* React component that displays a list of notes associated with the current user */
 import React from 'react';
 
 export default class NotesList extends React.Component {

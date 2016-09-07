@@ -1,3 +1,4 @@
+/* React component container for add note forms and list of notes */
 import React from 'react';
 import NotesList from './NotesList.jsx';
 import AddNote from './AddNote.jsx';

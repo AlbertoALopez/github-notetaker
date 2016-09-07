@@ -1,3 +1,4 @@
+/* React component that displays user profile information */
 import React from 'react';
 
 export default class UserProfile extends React.Component {

@@ -1,3 +1,4 @@
+/* App routes and router */
 import React from 'react';
 import App from '../components/App.jsx';
 import Home from '../components/Home.jsx';

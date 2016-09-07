@@ -1,3 +1,4 @@
+/* React component container for user profile information, repos and notes */
 import React from 'react';
 import Repos from './Github/Repos.jsx';
 import UserProfile from './Github/UserProfile.jsx';
@@ -17,6 +18,7 @@ export default class Profile extends React.Component {
         };
     }
     init(username) {
+        // Update list of notes
         base.fetch(username, {
             context: this,
             state: 'notes',
@@ -25,6 +27,7 @@ export default class Profile extends React.Component {
                 this.setState({
                     notes: data,
                 });
+                console.log(this.state.notes);
             }
         });
     }
@@ -37,10 +40,24 @@ export default class Profile extends React.Component {
     componentWillUnmount() {
 
     }
-    addNoteHandler(newNote) {
-        // this.setState({
-        //     notes:this.state.notes.concat([newNote])
-        // });
+    addNoteHandler(newNote, username) {
+        const self = this;
+        base.push(username, {
+            data: newNote,
+            then() {
+                base.fetch(username, {
+                    context: self,
+                    state: 'notes',
+                    asArray: true,
+                    then(data) {
+                        this.setState({
+                            notes: data,
+                        });
+                        console.log(this.state.notes);
+                    }
+                });
+            }
+        })
     }
     render() {
         const username = this.props.routeParams.username;

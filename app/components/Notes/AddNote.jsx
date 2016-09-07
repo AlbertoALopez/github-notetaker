@@ -1,32 +1,33 @@
-// React component that controls forms for adding notes
+/* React component that controls forms for adding notes */
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export default class AddNotes extends React.Component {
-    handleSubmit() {
-        const newNote = ReactDOM.findDOMNode(this.refs.note).value;
-        ReactDOM.findDOMNode(this.refs.note).value = '';
-        this.props.addNote(newNote);
+export default class AddNote extends React.Component {
+    handleSubmit(e) {
+        e.preventDefault();
+        const newNote = this.newNote.value;
+        this.newNote.value = '';
+        this.props.addNote(newNote, this.props.username);
     }
     render() {
         return (
-            <div className="input-group">
+            <form className="input-group" onSubmit={this.handleSubmit.bind(this)}>
                 <input type="text"
                     className="form-control"
                     placeholder="Add new note"
-                    ref={(ref) => this.note = ref}/>
+                    ref={(ref) => this.newNote = ref}/>
                 <span className="input-group-btn">
                     <button className="btn btn-default"
                         type="button"
-                        onClick={() => this.handleSubmit()}>
+                        onClick={this.handleSubmit.bind(this)}>
                         Submit</button>
                 </span>
-            </div>
+            </form>
         )
     }
 }
 
-AddNotes.propTypes = {
+AddNote.propTypes = {
     username: React.PropTypes.string.isRequired,
     addNote: React.PropTypes.func.isRequired,
 }

@@ -1,3 +1,4 @@
+/* React component that displays user repository information */
 import React from 'react';
 
 export default class Repos extends React.Component {

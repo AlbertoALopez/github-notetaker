@@ -1,3 +1,4 @@
+/* App container */
 import React from 'react';
 import GitHubSearch from './GitHubSearch.jsx';
 
