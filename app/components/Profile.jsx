@@ -5,6 +5,7 @@ import UserProfile from './Github/UserProfile.jsx';
 import Notes from './Notes/Notes.jsx';
 import Rebase from 're-base';
 import apiKey from '../config/apiKey.js'
+import helpers from '../utils/helpers.js';
 
 const base = Rebase.createClass(apiKey);
 
@@ -33,6 +34,14 @@ export default class Profile extends React.Component {
     }
     componentDidMount() {
         this.init(this.props.params.username);
+
+        helpers.getGithubInfo(this.props.params.username)
+        .then((data) => {
+            this.setState({
+                bio: data.bio,
+                repos: data.repos
+            });
+        });
     }
     componentWillReceiveProps(nextProps) {
         this.init(nextProps.params.username);
