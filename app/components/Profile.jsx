@@ -5,7 +5,7 @@ import UserProfile from './Github/UserProfile.jsx';
 import Notes from './Notes/Notes.jsx';
 import Rebase from 're-base';
 import apiKey from '../config/apiKey.js'
-import helpers from '../utils/helpers.js';
+import getGithubInfo from '../utils/helpers.js';
 
 const base = Rebase.createClass(apiKey);
 
@@ -28,20 +28,19 @@ export default class Profile extends React.Component {
                 this.setState({
                     notes: data,
                 });
-                console.log(this.state.notes);
             }
         });
-    }
-    componentDidMount() {
-        this.init(this.props.params.username);
-
-        helpers.getGithubInfo(this.props.params.username)
+        // Grab user profile information
+        getGithubInfo(username)
         .then((data) => {
             this.setState({
                 bio: data.bio,
                 repos: data.repos
             });
         });
+    }
+    componentDidMount() {
+        this.init(this.props.params.username);
     }
     componentWillReceiveProps(nextProps) {
         this.init(nextProps.params.username);
@@ -51,6 +50,7 @@ export default class Profile extends React.Component {
     }
     addNoteHandler(newNote, username) {
         const self = this;
+        // Push new note onto stack and then fetch updated list
         base.push(username, {
             data: newNote,
             then() {
@@ -62,7 +62,6 @@ export default class Profile extends React.Component {
                         this.setState({
                             notes: data,
                         });
-                        console.log(this.state.notes);
                     }
                 });
             }
