@@ -16,27 +16,31 @@ export default class Profile extends React.Component {
             repos: [],
         };
     }
-    init() {
-        this.ref = base.syncState(this.props.routeParams.username, {
+    init(username) {
+        base.fetch(username, {
             context: this,
+            state: 'notes',
             asArray: true,
-            state: 'notes'
+            then(data) {
+                this.setState({
+                    notes: data,
+                });
+            }
         });
     }
     componentDidMount() {
-        this.init();
+        this.init(this.props.params.username);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.init(nextProps.params.username);
     }
     componentWillUnmount() {
-        base.removeBinding(this.ref);
-    }
-    componentWillReceiveProps() {
-        base.removeBinding(this.ref);
-        this.init();
+
     }
     addNoteHandler(newNote) {
-        this.setState({
-            notes: this.state.notes.concat([newNote])
-        });
+        // this.setState({
+        //     notes:this.state.notes.concat([newNote])
+        // });
     }
     render() {
         const username = this.props.routeParams.username;
@@ -57,3 +61,7 @@ export default class Profile extends React.Component {
         )
     }
 }
+
+Profile.contextTypes = {
+    router: React.PropTypes.object.isRequired,
+};

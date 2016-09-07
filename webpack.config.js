@@ -1,15 +1,22 @@
+const path = require('path');
+const PATHS = {
+    public: path.join(__dirname, 'public')
+}
+
 module.exports = {
-    entry: './app/components/main.js',
+    entry: {
+        javascript: './app/components/main.js',
+    },
     output: {
-        path: './',
-        filename: 'public/bundle.js'
+        path: PATHS.public,
+        filename: 'bundle.js',
+        publicPath: '/public/',
     },
     devServer: {
+        contentBase: PATHS.public,
         inline: true,
         port: 3333,
-        historyApiFallback: {
-            index: 'public/index.html'
-        }
+        historyApiFallback: true
     },
     module: {
         loaders: [
